@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 /// Popup widget that you can use by default to show some information
 class CustomSnackBar extends StatefulWidget {
   final String message;
-  final Widget icon;
+  final Widget? icon;
   final Color backgroundColor;
+  final Gradient? backgroundGradient;
   final TextStyle textStyle;
   final int iconRotationAngle;
   final List<BoxShadow> boxShadow;
@@ -15,6 +16,26 @@ class CustomSnackBar extends StatefulWidget {
   final double iconPositionLeft;
   final EdgeInsetsGeometry messagePadding;
   final double textScaleFactor;
+
+  const CustomSnackBar.custom({
+    Key? key,
+    required this.message,
+    this.icon,
+    this.messagePadding = const EdgeInsets.symmetric(horizontal: 24),
+    this.textStyle = const TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 16,
+      color: Colors.white,
+    ),
+    this.iconRotationAngle = 32,
+    this.iconPositionTop = -10,
+    this.iconPositionLeft = -8,
+    this.backgroundColor = const Color(0xff00E676),
+    this.backgroundGradient,
+    this.boxShadow = kDefaultBoxShadow,
+    this.borderRadius = kDefaultBorderRadius,
+    this.textScaleFactor = 1.0,
+  });
 
   const CustomSnackBar.success({
     Key? key,
@@ -34,6 +55,7 @@ class CustomSnackBar extends StatefulWidget {
     this.iconPositionTop = -10,
     this.iconPositionLeft = -8,
     this.backgroundColor = const Color(0xff00E676),
+    this.backgroundGradient,
     this.boxShadow = kDefaultBoxShadow,
     this.borderRadius = kDefaultBorderRadius,
     this.textScaleFactor = 1.0,
@@ -57,6 +79,7 @@ class CustomSnackBar extends StatefulWidget {
     this.iconPositionTop = -10,
     this.iconPositionLeft = -8,
     this.backgroundColor = const Color(0xff2196F3),
+    this.backgroundGradient,
     this.boxShadow = kDefaultBoxShadow,
     this.borderRadius = kDefaultBorderRadius,
     this.textScaleFactor = 1.0,
@@ -80,6 +103,7 @@ class CustomSnackBar extends StatefulWidget {
     this.iconPositionTop = -10,
     this.iconPositionLeft = -8,
     this.backgroundColor = const Color(0xffff5252),
+    this.backgroundGradient,
     this.boxShadow = kDefaultBoxShadow,
     this.borderRadius = kDefaultBorderRadius,
     this.textScaleFactor = 1.0,
@@ -97,7 +121,8 @@ class _CustomSnackBarState extends State<CustomSnackBar> {
       clipBehavior: Clip.hardEdge,
       height: 80,
       decoration: BoxDecoration(
-        color: widget.backgroundColor,
+        color: widget.backgroundGradient != null ? null : widget.backgroundColor,
+        gradient: widget.backgroundGradient,
         borderRadius: widget.borderRadius,
         boxShadow: widget.boxShadow,
       ),
